@@ -1,8 +1,7 @@
 import os
-
 from datetime import datetime
 
-from flask import abort, Flask, jsonify, request
+from flask import Flask, abort, jsonify, request
 
 
 app = Flask(__name__)
@@ -34,7 +33,7 @@ def teamstatus():
 
     activeUser = request.form['user_id']
     userText = request.form['text']
-    
+
     now = datetime.now()
     currentTime = now.strftime("%H:%M")
 
@@ -45,5 +44,5 @@ def teamstatus():
         response = userReport()
     else:
         response = "invalid status"
-    
+
     return response
