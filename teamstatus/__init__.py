@@ -1,8 +1,8 @@
 import os
 from datetime import datetime
 
+import psycopg2
 from flask import Flask, abort, jsonify, request
-
 
 app = Flask(__name__)
 
@@ -16,12 +16,36 @@ def is_request_valid(request):
 
 def setUserText(activeUser, userText, currentTime):
     """Set the users status"""
+    updateDB(activeUser, userText, currentTime)
+    updateSlack(activeUser, userText)
     return True
 
 
 def userReport():
     """Return the status of all users in the channel"""
     return True
+
+
+def usableStatus(userText):
+    """Take what the user entered and convert it to the standard status"""
+    statusLunch = {"lunch": ["food", "monch", "nom"]}
+    statusBreak = {"break": ["walk", "brb"]}
+    statusBack = {"back": ["back"]}
+    statusOnline = {"online": ["hello", "good morning"]}
+    statusEod = {"eod": ["eod", "good night"]}
+    statusList = [statusLunch, statusBreak, statusBack, statusOnline, statusEod]
+
+    newText = str(userText).lower()
+
+    userStatus = ""
+
+    for dict in statusList:
+        for key in dict:
+            for value in key:
+                if newText == value:
+                    userStatus = str(key)
+    
+    return userStatus
 
 
 @app.route('/teamstatus', methods=['POST'])
