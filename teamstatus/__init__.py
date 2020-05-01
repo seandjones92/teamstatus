@@ -16,8 +16,10 @@ def is_request_valid(request):
 
 def setUserText(activeUser, userText, currentTime):
     """Set the users status"""
-    updateDB(activeUser, userText, currentTime)
-    updateSlack(activeUser, userText)
+    userStatus = usableStatus('userText')
+
+    updateDB(activeUser, userStatus, currentTime)
+    updateSlack(activeUser, userStatus)
     return True
 
 
@@ -53,20 +55,15 @@ def teamstatus():
     if not is_request_valid(request):
         abort(400)
 
-    validState = ["online", "eod", "lunch", "break"]
-
     activeUser = request.form['user_id']
     userText = request.form['text']
 
     now = datetime.now()
     currentTime = now.strftime("%H:%M")
 
-    if userText in validState:
+   if userText == "report":
+       response = userReport:
+   else:
         setUserText(activeUser, userText, currentTime)
-        response = "your status was set"
-    elif userText == "report":
-        response = userReport()
-    else:
-        response = "invalid status"
-
+    
     return response
