@@ -15,6 +15,16 @@ def is_request_valid(request):
     return is_token_valid and is_team_id_valid
 
 
+def setUserText(activeUser, userText, currentTime):
+    """Set the users status"""
+    return True
+
+
+def userReport():
+    """Return the status of all users in the channel"""
+    return True
+
+
 @app.route('/teamstatus', methods=['POST'])
 def teamstatus():
     if not is_request_valid(request):
@@ -29,7 +39,7 @@ def teamstatus():
     currentTime = now.strftime("%H:%M")
 
     if userText in validState:
-        setuserText(activeUser, userText)
+        setUserText(activeUser, userText, currentTime)
         response = "your status was set"
     elif userText == "report":
         response = userReport()
