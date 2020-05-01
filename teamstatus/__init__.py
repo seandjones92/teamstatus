@@ -35,18 +35,17 @@ def usableStatus(userText):
     statusBack = {"back": ["back"]}
     statusOnline = {"online": ["hello", "good morning"]}
     statusEod = {"eod": ["eod", "good night"]}
-    statusList = [statusLunch, statusBreak, statusBack, statusOnline, statusEod]
+    statusList = [statusLunch, statusBreak,
+                  statusBack, statusOnline, statusEod]
 
     newText = str(userText).lower()
-
-    userStatus = ""
 
     for dict in statusList:
         for key in dict:
             for value in key:
                 if newText == value:
                     userStatus = str(key)
-    
+
     return userStatus
 
 
@@ -61,9 +60,9 @@ def teamstatus():
     now = datetime.now()
     currentTime = now.strftime("%H:%M")
 
-   if userText == "report":
-       response = userReport:
-   else:
+    if userText == "report":
+        response = userReport()
+    else:
         setUserText(activeUser, userText, currentTime)
-    
+
     return response
