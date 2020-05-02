@@ -25,11 +25,11 @@ class teamMember(object):
 
         # get users current information
         self.userName = cur.execute(
-            "SELECT NAME FROM users WHERE SLACKID = %s", self.slackId)
+            "SELECT NAME FROM users WHERE SLACKID = %s;", self.slackId)
         self.lastUpdated = cur.execute(
-            "SELECT LASTUPDATED FROM users WHERE SLACKID = %s", self.slackId)
+            "SELECT LASTUPDATED FROM users WHERE SLACKID = %s;", self.slackId)
         self.userStatus = cur.execute(
-            "SELECT STATUS FROM users WHERE SLACKID = %s", self.slackId)
+            "SELECT STATUS FROM users WHERE SLACKID = %s;", self.slackId)
 
         # close db connection
         cur.close()
