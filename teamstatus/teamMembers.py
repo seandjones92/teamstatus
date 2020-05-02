@@ -74,8 +74,9 @@ class teamMember(object):
         client = WebClient(token=os.environ['SLACK_API_TOKEN'])
 
         try:
-            response = client.chat_postMessage(
+            response = client.chat_postEphemeral(
                 channel=self.channelId,
+                user=self.slackId,
                 text="Status changed")
             assert response["message"]["text"] == "Status changed"
         except SlackApiError as e:
