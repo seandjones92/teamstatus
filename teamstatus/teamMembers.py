@@ -35,26 +35,6 @@ class teamMember(object):
         cur.close()
         conn.close()
 
-    def __usableStatus(self, userText):
-        """Take what the user entered and convert it to the standard status"""
-        statusLunch = {"lunch": ["food", "monch", "nom"]}
-        statusBreak = {"break": ["walk", "brb"]}
-        statusBack = {"back": ["back"]}
-        statusOnline = {"online": ["hello", "good morning"]}
-        statusEod = {"eod": ["eod", "good night"]}
-        statusList = [statusLunch, statusBreak,
-                      statusBack, statusOnline, statusEod]
-
-        newText = str(userText).lower()
-
-        for dict in statusList:
-            for key in dict:
-                for value in key:
-                    if newText == value:
-                        userStatus = str(key)
-
-        return userStatus
-
     def __updateDB(self):
         """update the users status in the DB"""
         conn = psycopg2.connect("dns=hostname dbname=teamdb user=teamdb")
@@ -83,8 +63,28 @@ class teamMember(object):
             assert e.response["ok"] is False
             assert e.response["error"]
             print(f"Got an error: {e.response['error']}")
-        
+
         return True
+
+    def __usableStatus(self, userText):
+        """Take what the user entered and convert it to the standard status"""
+        statusLunch = {"lunch": ["food", "monch", "nom"]}
+        statusBreak = {"break": ["walk", "brb"]}
+        statusBack = {"back": ["back"]}
+        statusOnline = {"online": ["hello", "good morning"]}
+        statusEod = {"eod": ["eod", "good night"]}
+        statusList = [statusLunch, statusBreak,
+                      statusBack, statusOnline, statusEod]
+
+        newText = str(userText).lower()
+
+        for dict in statusList:
+            for key in dict:
+                for value in key:
+                    if newText == value:
+                        userStatus = str(key)
+
+        return userStatus
 
     def updateStatus(self, userText):
         """Update the user status and set last updated time"""
@@ -94,5 +94,3 @@ class teamMember(object):
         # update the values held in the db and the slack client
         self.__updateDB()
         self.__updateSlack()
-        
-        return True

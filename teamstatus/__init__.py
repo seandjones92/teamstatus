@@ -24,5 +24,5 @@ def teamstatus():
     userText = request.form['text']
     channelId = request.form['channel_id']
 
-    currentUser = teamMember(slackId, channelId)
-    currentUser.updateStatus(userText)
+    requestingUser = teamMember(slackId, channelId)
+    requestingUser.updateStatus(userText)
