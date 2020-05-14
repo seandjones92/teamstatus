@@ -29,7 +29,7 @@ class teamMember(object):
         self.lastUpdated = cur.execute(
             "SELECT LASTUPDATED FROM users WHERE SLACKID = %s;", self.slackId)
         self.userStatus = cur.execute(
-            "SELECT STATUS FROM users WHERE SLACKID = %s;", self.slackId)
+            "SELECT STATUS FROM users WHERE SLACKID = %s;", self.slackId) # SELECT SHORTSTAT from status WHERE ID = (SELECT STATUS FROM users WHERE NAME = 'username');
 
         # close db connection
         cur.close()
