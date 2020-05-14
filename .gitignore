@@ -1,6 +1,9 @@
 # VS Code
 .vscode
 
+# nvim Logging
+.nvimlog
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
