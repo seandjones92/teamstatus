@@ -21,8 +21,11 @@ def teamstatus():
         abort(400)
 
     slackId = request.form['user_id']
-    userText = request.form['text']
+    userText = request.form['text'].lower()
     channelId = request.form['channel_id']
 
-    requestingUser = teamMember(slackId, channelId)
-    requestingUser.updateStatus(userText)
+    if userText == "report":
+        pass
+    else:
+        requestingUser = teamMember(slackId, channelId)
+        requestingUser.updateStatus(userText)

@@ -76,12 +76,10 @@ class teamMember(object):
         statusList = [statusLunch, statusBreak,
                       statusBack, statusOnline, statusEod]
 
-        newText = str(userText).lower()
-
         for dict in statusList:
             for key in dict:
                 for value in key:
-                    if newText == value:
+                    if userText == value:
                         userStatus = str(key)
 
         return userStatus
