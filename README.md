@@ -37,7 +37,18 @@ The report will look something like this:
 
 The report will have the users names appear as slack links so you can click within the provided report to go directly into a private conversation with the user.
 
-#### Features for the future
+### Features for the future
 It may also be useful to have options to click a user in the report to automatically mention them in a message in the current channel. For example you might be in the `#team` channel, request the report, click a name and it automatically adds them as a mention in a draft message for the current `#team` channel so communication continues in the open. 
 
 Another use case would be to have the headers for the report be clickable. This would allow for something similar to the feature described above but could add all users in that column as mentions. This way you could easily notify everyone marked as "available" without bothering people away at lunch
+
+## Building locally
+build with:
+```
+podman run -dt --rm -P localhost/teamstatus
+```
+
+Get connection info:
+```
+podman port -l
+```

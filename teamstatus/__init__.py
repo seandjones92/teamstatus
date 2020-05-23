@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask import Flask, abort, jsonify, request
 
-from teamMembers import teamMember
+from teamstatus.teamMembers import teamMember
 
 app = Flask(__name__)
 
@@ -14,6 +14,10 @@ def validate_request(request):
 
     return is_token_valid and is_team_id_valid
 
+
+@app.route('/', methods=['GET'])
+def connectiontest():
+    return "The web server is running"
 
 @app.route('/teamstatus', methods=['POST'])
 def teamstatus():
