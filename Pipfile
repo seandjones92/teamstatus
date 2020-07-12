@@ -13,6 +13,8 @@ gunicorn = "*"
 pylint = "*"
 rope = "*"
 autopep8 = "*"
+bpython = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3"
