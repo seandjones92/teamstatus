@@ -1,5 +1,12 @@
+# Building
 
-### Features for the future
+Will be built with Slacks [EventAPI](https://api.slack.com/events-api) and will need:
+
+- message.channels - to listen for messages
+- chat.postMessage - to post into the channel
+- member_joined_channel - to print usage instructions when a new user joins the channel
+
+## Features for the future
 
 It may also be useful to have options to click a user in the report to automatically mention them in a message in the current channel. For example you might be in the `#team` channel, request the report, click a name and it automatically adds them as a mention in a draft message for the current `#team` channel so communication continues in the open.
 
