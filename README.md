@@ -47,7 +47,6 @@ It may also be useful to have options to click a user in the report to automatic
 Another use case would be to have the headers for the report be clickable. This would allow for something similar to the feature described above but could add all users in that column as mentions. This way you could easily notify everyone marked as "available" without bothering people away at lunch
 
 ---
-maintain custom user slack group like @vra-ee
 group name: available
 
 when a user does something like `/teamstatus online` it adds them to the "@available" custom group
