@@ -3,7 +3,7 @@
 import os
 from datetime import datetime
 
-import psycopg2
+import sqlite3
 from slack import WebClient
 from slack.errors import SlackApiError
 
@@ -14,37 +14,39 @@ class teamMember(object):
     def __init__(self, slackId, channelId):
         """takes the slack user ID and gets the users information from the DB"""
         # save slackId internally
-        self.slackId = slackId
+        self.slackId = (slackId,)
 
         # save channel id we are interacting with
-        self.channelId = channelId
+        self.channelId = (channelId,)
+
+        # set DB location
+        self.dblocation = '/data/teamstatus.db'
 
         # connect to DB and create cursor
-        conn = psycopg2.connect("dns=hostname dbname=teamdb user=teamdb")
+        conn = sqlite3.connect(self.dblocation)
         cur = conn.cursor()
 
         # get users current information
         self.userName = cur.execute(
-            "SELECT NAME FROM users WHERE SLACKID = %s;", self.slackId)
+            "SELECT NAME FROM users WHERE SLACKID = ?;", self.slackId)
         self.lastUpdated = cur.execute(
-            "SELECT LASTUPDATED FROM users WHERE SLACKID = %s;", self.slackId)
+            "SELECT LASTUPDATED FROM users WHERE SLACKID = ?;", self.slackId)
         self.userStatus = cur.execute(
-            "SELECT STATUS FROM users WHERE SLACKID = %s;", self.slackId) # SELECT SHORTSTAT from status WHERE ID = (SELECT STATUS FROM users WHERE NAME = 'username');
+            "SELECT STATUS FROM users WHERE SLACKID = ?;", self.slackId)  # SELECT SHORTSTAT from status WHERE ID = (SELECT STATUS FROM users WHERE NAME = 'username');
 
         # close db connection
-        cur.close()
         conn.close()
 
     def __updateDB(self):
         """update the users status in the DB"""
-        conn = psycopg2.connect("dns=hostname dbname=teamdb user=teamdb")
+        conn = sqlite3.connect(self.dblocation)
         cur = conn.cursor()
 
         # set user status in DB
-        cur.execute("UPDATE users SET LASTUPDATED = %s, STATUS = %s WHERE SLACKID = %s",
+        cur.execute("UPDATE users SET LASTUPDATED = ?, STATUS = ? WHERE SLACKID = ?",
                     (self.lastUpdated, self.userStatus, self.slackId))
 
-        cur.close()
+        conn.commit()
         conn.close()
 
         return True
